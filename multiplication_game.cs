@@ -5,15 +5,34 @@ using System.Collections.Generic;
 int correctAnswers = 0;
 int incorrectAnswers = 0;
 int noAnswers = 0;
+int timeIntervalSeconds = 30;
+
+int totalAnswers;
 
 Console.WriteLine("Welcome to the multiplication task game!\n");
-Console.WriteLine("You will be given 20 tasks to calculate the multiplication of two numbers between 1 and 9.");
-Console.WriteLine("You have 7 seconds to answer each task. If you don't answer within this time, it will be considered incorrect.\n");
+Console.WriteLine("How many tasks do you want: ");
+string input = Console.ReadLine();
+if (!int.TryParse(input, out totalAnswers))
+{
+    Console.WriteLine("Invalid input. Please enter a valid number.");
+    return;
+}
+
+Console.WriteLine("How many seconds for each task: ");
+input = Console.ReadLine();
+if (!int.TryParse(input, out timeIntervalSeconds))
+{
+    Console.WriteLine("Invalid input. Please enter a valid number.");
+    return;
+}
+
+Stopwatch gameStopwatch = new Stopwatch();
+gameStopwatch.Start();
 
 var tasks = new List<(int, int, int?, int, string)>();
 var random = new Random();
 
-for (int i = 1; i <= 20; i++)
+for (int i = 1; i <= totalAnswers; i++)
 {
     int num1 = random.Next(2, 10);
     int num2 = random.Next(2, 10);
@@ -25,7 +44,7 @@ for (int i = 1; i <= 20; i++)
     stopwatch.Start();
     string userInput = null;
     
-    while (stopwatch.Elapsed.TotalSeconds <= 30 && string.IsNullOrEmpty(userInput))
+    while (stopwatch.Elapsed.TotalSeconds <= timeIntervalSeconds && string.IsNullOrEmpty(userInput))
     {
         if (Console.KeyAvailable)
         {
@@ -68,12 +87,15 @@ for (int i = 1; i <= 20; i++)
     }
 }
 
+gameStopwatch.Stop();
+
 // Summary
 Console.WriteLine("\nGame Over! Here's the summary:");
-Console.WriteLine($"Total Tasks: 20");
+Console.WriteLine($"Total Tasks: {totalAnswers}");
 Console.WriteLine($"Correct Answers: {correctAnswers}");
 Console.WriteLine($"Incorrect Answers: {incorrectAnswers}");
 Console.WriteLine($"No Answers: {noAnswers}\n");
+Console.WriteLine($"Total Time Taken: {gameStopwatch.Elapsed.TotalSeconds} seconds");
 
 Console.WriteLine("Detailed Report:");
 for (int i = 0; i < tasks.Count; i++)
