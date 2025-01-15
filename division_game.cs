@@ -9,7 +9,7 @@ int timeIntervalSeconds = 30;
 
 int totalAnswers;
 
-Console.WriteLine("Welcome to the multiplication task game!\n");
+Console.WriteLine("Welcome to the division task game!\n");
 Console.WriteLine("How many tasks do you want: ");
 string input = Console.ReadLine();
 if (!int.TryParse(input, out totalAnswers))
