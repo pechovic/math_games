@@ -57,7 +57,9 @@ for (int i = 1; i <= totalAnswers; i++)
 
     if (string.IsNullOrEmpty(userInput))
     {
+        Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine("Time's up! Moving to the next task.");
+        Console.ResetColor();
         tasks.Add((num1, num2, null, correctResult, "No Answer"));
         noAnswers++;
         continue;
@@ -69,13 +71,17 @@ for (int i = 1; i <= totalAnswers; i++)
 
         if (userAnswer == correctResult)
         {
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Correct!");
+            Console.ResetColor();
             tasks.Add((num1, num2, userAnswer, correctResult, "Correct"));
             correctAnswers++;
         }
         else
         {
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine($"Incorrect. The correct answer was {correctResult}.");
+            Console.ResetColor();
             tasks.Add((num1, num2, userAnswer, correctResult, "Incorrect"));
             incorrectAnswers++;
         }
